@@ -4,1108 +4,1002 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔍 The Johnson Mystery — Escape Room</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#0a0e17;--card:#151b2b;--card2:#1e2538;--gold:#f5c518;--gold2:#c9a30a;
---red:#e94560;--green:#3fb950;--blue:#58a6ff;--txt:#e6edf3;--dim:#7a8599;
-}
+:root{--bg:#0a0e17;--card:#151b2b;--card2:#1e2538;--gold:#f5c518;--gold2:#c9a30a;--red:#e94560;--green:#3fb950;--txt:#e6edf3;--dim:#8b95a5}
 html,body{height:100%;overflow:hidden}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt)}
+body{font-family:'Inter',Arial,sans-serif;background:var(--bg);color:var(--txt)}
 button{font-family:inherit;cursor:pointer;border:none;outline:none}
-input{font-family:inherit;outline:none}
+input{font-family:inherit;outline:none;border:none}
 
-/* ─── SCREENS ─── */
 .screen{position:fixed;inset:0;display:none;flex-direction:column;z-index:1}
 .screen.active{display:flex}
 
-/* ─── INTRO ─── */
-#intro{background:linear-gradient(160deg,#0a0e17 0%,#14192a 50%,#0d1018 100%);
-align-items:center;justify-content:center;text-align:center;padding:20px}
-#intro::before{content:'';position:absolute;inset:0;
-background:radial-gradient(circle at 50% 30%,rgba(245,197,24,.06) 0%,transparent 60%)}
-.intro-badge{font-family:'Cinzel',serif;font-size:clamp(.7rem,1.5vw,.85rem);
-letter-spacing:6px;color:var(--gold);margin-bottom:12px;text-transform:uppercase}
-.intro-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,5vw,3.2rem);
-font-weight:900;color:var(--gold);text-shadow:0 0 40px rgba(245,197,24,.3);
-margin-bottom:24px;line-height:1.2}
-.intro-story{max-width:640px;font-size:clamp(.88rem,2vw,1.05rem);line-height:1.8;
-color:var(--dim);margin-bottom:32px;position:relative}
-.intro-story em{color:var(--txt);font-style:normal;font-weight:600}
-.intro-chars{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
-.intro-char{background:var(--card);border-radius:14px;padding:14px 10px 10px;width:130px;
-border:1px solid rgba(245,197,24,.1);text-align:center;transition:.3s}
-.intro-char:hover{border-color:var(--gold);transform:translateY(-4px);
-box-shadow:0 8px 30px rgba(245,197,24,.1)}
-.intro-char img{width:64px;height:64px;border-radius:50%;object-fit:cover;
-border:2px solid var(--gold2);margin-bottom:8px}
-.intro-char .name{font-weight:600;font-size:.85rem}
-.intro-char .role{font-size:.72rem;color:var(--dim)}
+/* INTRO */
+#intro{align-items:center;justify-content:center;text-align:center;padding:20px;
+background:radial-gradient(ellipse at 50% 30%,#1a1530 0%,#0a0e17 70%)}
+.intro-badge{font-family:'Cinzel',Georgia,serif;font-size:.8rem;letter-spacing:5px;
+color:var(--gold);margin-bottom:10px;text-transform:uppercase;opacity:.8}
+.intro-title{font-family:'Cinzel',Georgia,serif;font-size:clamp(1.8rem,5vw,3rem);
+font-weight:900;color:var(--gold);margin-bottom:20px;line-height:1.2;
+text-shadow:0 0 50px rgba(245,197,24,.2)}
+.intro-story{max-width:600px;font-size:clamp(.85rem,2vw,1rem);line-height:1.9;
+color:var(--dim);margin-bottom:30px}
+.intro-story b{color:var(--txt);font-weight:600}
+.intro-chars{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.char-card{background:var(--card);border:1px solid rgba(245,197,24,.12);border-radius:14px;
+padding:14px 12px 10px;width:120px;text-align:center;transition:.3s}
+.char-card:hover{border-color:var(--gold);transform:translateY(-3px);
+box-shadow:0 8px 25px rgba(245,197,24,.1)}
+.char-avatar{width:60px;height:60px;border-radius:50%;margin:0 auto 8px;
+display:flex;align-items:center;justify-content:center;font-size:1.8rem;
+border:2px solid var(--gold2)}
+.char-card .c-name{font-weight:700;font-size:.8rem}
+.char-card .c-role{font-size:.68rem;color:var(--dim);margin-top:2px}
+
 .btn-start{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0e17;
-font-family:'Cinzel',serif;font-weight:700;font-size:clamp(.95rem,2vw,1.15rem);
-padding:16px 48px;border-radius:50px;letter-spacing:2px;text-transform:uppercase;
-transition:.3s;box-shadow:0 4px 30px rgba(245,197,24,.3)}
-.btn-start:hover{transform:scale(1.05);box-shadow:0 6px 40px rgba(245,197,24,.5)}
+font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:clamp(.9rem,2vw,1.1rem);
+padding:16px 44px;border-radius:50px;letter-spacing:2px;text-transform:uppercase;
+transition:.3s;box-shadow:0 4px 30px rgba(245,197,24,.25)}
+.btn-start:hover{transform:scale(1.06);box-shadow:0 6px 40px rgba(245,197,24,.4)}
+.btn-start:active{transform:scale(.98)}
 
-/* ─── TOP BAR ─── */
-#topbar{background:rgba(10,14,23,.92);backdrop-filter:blur(12px);
-border-bottom:1px solid rgba(245,197,24,.12);padding:10px 20px;
-display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-z-index:10;flex-shrink:0}
-.tb-room{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(.8rem,2vw,1rem);
-color:var(--gold)}
-.tb-group{display:flex;gap:12px;align-items:center}
-.tb-item{display:flex;align-items:center;gap:5px;font-size:.8rem;
-background:var(--card);padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.06)}
-.tb-item .icon{font-size:1rem}
+/* TOPBAR */
+#topbar{background:rgba(10,14,23,.94);backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(245,197,24,.1);padding:10px 16px;
+display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.tb-room{font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:clamp(.75rem,2vw,.95rem);color:var(--gold)}
+.tb-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tb-pill{display:flex;align-items:center;gap:4px;font-size:.75rem;background:var(--card);
+padding:5px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.05)}
+.tb-pill .ic{font-size:.9rem}
 #timer{font-weight:700;font-variant-numeric:tabular-nums}
-#timer.warning{color:var(--red);animation:timerPulse 1s infinite}
-@keyframes timerPulse{0%,100%{opacity:1}50%{opacity:.4}}
-.tb-btn{background:var(--card2);color:var(--gold);padding:6px 14px;border-radius:20px;
-font-size:.78rem;font-weight:600;border:1px solid rgba(245,197,24,.2);transition:.2s}
+#timer.warn{color:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.tb-btn{background:var(--card2);color:var(--gold);padding:5px 12px;border-radius:20px;
+font-size:.72rem;font-weight:600;border:1px solid rgba(245,197,24,.15);transition:.2s}
 .tb-btn:hover{background:var(--gold);color:var(--bg)}
+.tb-btn:active{transform:scale(.95)}
 
-/* ─── ROOM VIEW ─── */
-#room-container{flex:1;position:relative;overflow:hidden}
-#room-bg{width:100%;height:100%;background-size:cover;background-position:center;
-position:relative;transition:opacity .8s}
+/* ROOM */
+#room-wrap{flex:1;position:relative;overflow:hidden}
+#room-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:.5s}
 #room-bg::after{content:'';position:absolute;inset:0;
-background:radial-gradient(ellipse at center,rgba(0,0,0,.15) 30%,rgba(0,0,0,.7) 100%);
-pointer-events:none}
-.room-obj{position:absolute;z-index:5;width:clamp(56px,10vw,80px);
-height:clamp(56px,10vw,80px);border-radius:50%;display:flex;flex-direction:column;
-align-items:center;justify-content:center;cursor:pointer;transition:.3s;
-background:rgba(0,0,0,.55);border:2px solid rgba(245,197,24,.5);
-backdrop-filter:blur(4px)}
-.room-obj:hover{transform:scale(1.15);border-color:var(--gold);
-box-shadow:0 0 25px rgba(245,197,24,.4)}
-.room-obj.done{border-color:var(--green);opacity:.5;pointer-events:none}
-.room-obj .emoji{font-size:clamp(1.3rem,3vw,1.8rem);line-height:1}
-.room-obj .label{font-size:clamp(.5rem,1.2vw,.65rem);margin-top:2px;
-text-align:center;color:var(--txt);font-weight:500}
-.room-obj::before{content:'';position:absolute;inset:-6px;border-radius:50%;
-border:2px solid rgba(245,197,24,.25);animation:objPulse 2.5s infinite}
-.room-obj.done::before{display:none}
-@keyframes objPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.2);opacity:0}}
+background:radial-gradient(ellipse at center,rgba(0,0,0,.1) 20%,rgba(0,0,0,.65) 100%)}
 
-.door-lock{position:absolute;right:4%;top:50%;transform:translateY(-50%);z-index:6;
-width:clamp(64px,11vw,90px);height:clamp(80px,14vw,110px);
-background:linear-gradient(180deg,#3a2a10,#2a1c08);border:3px solid #6b4f2a;
+.obj-btn{position:absolute;z-index:5;width:clamp(52px,10vw,76px);height:clamp(52px,10vw,76px);
+border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+cursor:pointer;transition:.3s;background:rgba(0,0,0,.5);border:2px solid rgba(245,197,24,.45);
+backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.obj-btn:hover{transform:scale(1.15);border-color:var(--gold);box-shadow:0 0 25px rgba(245,197,24,.35)}
+.obj-btn:active{transform:scale(.95)}
+.obj-btn.solved{border-color:var(--green);opacity:.45;pointer-events:none}
+.obj-btn .emo{font-size:clamp(1.2rem,3vw,1.7rem)}
+.obj-btn .lbl{font-size:clamp(.45rem,1.1vw,.6rem);margin-top:1px;font-weight:500}
+.obj-btn::before{content:'';position:absolute;inset:-5px;border-radius:50%;
+border:2px solid rgba(245,197,24,.2);animation:ring 2.5s infinite}
+.obj-btn.solved::before{display:none}
+@keyframes ring{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.25);opacity:0}}
+
+.door{position:absolute;right:3%;top:50%;transform:translateY(-50%);z-index:6;
+width:clamp(58px,10vw,82px);height:clamp(72px,13vw,100px);
+background:linear-gradient(180deg,#3a2a10,#24180a);border:3px solid #6b4f2a;
 border-radius:10px;display:flex;flex-direction:column;align-items:center;
-justify-content:center;cursor:pointer;transition:.3s;box-shadow:0 4px 20px rgba(0,0,0,.6)}
-.door-lock:hover{box-shadow:0 0 30px rgba(245,197,24,.3);border-color:var(--gold)}
-.door-lock.unlocked{border-color:var(--green);box-shadow:0 0 30px rgba(63,185,80,.3)}
-.door-lock .lock-icon{font-size:clamp(1.5rem,4vw,2.2rem)}
-.door-lock .lock-label{font-size:clamp(.5rem,1.2vw,.65rem);color:var(--gold);
-font-weight:600;margin-top:4px}
-.code-dots{display:flex;gap:4px;margin-top:6px}
-.code-dot{width:clamp(10px,2vw,14px);height:clamp(10px,2vw,14px);border-radius:50%;
+justify-content:center;cursor:pointer;transition:.3s;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.door:hover{box-shadow:0 0 25px rgba(245,197,24,.25);border-color:var(--gold)}
+.door:active{transform:translateY(-50%) scale(.95)}
+.door.open{border-color:var(--green);box-shadow:0 0 25px rgba(63,185,80,.25)}
+.door .d-icon{font-size:clamp(1.4rem,3.5vw,2rem)}
+.door .d-label{font-size:clamp(.45rem,1vw,.6rem);color:var(--gold);font-weight:600;margin-top:3px}
+.dots{display:flex;gap:3px;margin-top:4px}
+.dot{width:clamp(8px,1.8vw,12px);height:clamp(8px,1.8vw,12px);border-radius:50%;
 background:#1a1a1a;border:1px solid #444;transition:.3s}
-.code-dot.revealed{background:var(--gold);border-color:var(--gold);
-box-shadow:0 0 8px rgba(245,197,24,.5)}
+.dot.on{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px rgba(245,197,24,.4)}
 
-/* ─── NARRATION ─── */
-#narration{background:rgba(10,14,23,.95);backdrop-filter:blur(10px);
-border-top:1px solid rgba(245,197,24,.1);padding:14px 20px;display:flex;
-align-items:flex-start;gap:14px;min-height:80px;flex-shrink:0}
-.narrator-avatar{width:48px;height:48px;border-radius:50%;
-background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;
-align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
-.narrator-text{flex:1;font-size:clamp(.82rem,1.8vw,.95rem);line-height:1.6;
-color:var(--dim)}
-.narrator-text strong{color:var(--gold)}
-.narrator-text .highlight{color:var(--txt);font-weight:500}
+/* NARRATION */
+#narration{background:rgba(10,14,23,.95);border-top:1px solid rgba(245,197,24,.08);
+padding:12px 16px;display:flex;align-items:flex-start;gap:12px;min-height:70px;flex-shrink:0}
+.nar-av{width:42px;height:42px;border-radius:50%;
+background:linear-gradient(135deg,var(--gold),var(--gold2));
+display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+#nar-text{flex:1;font-size:clamp(.8rem,1.8vw,.92rem);line-height:1.65;color:var(--dim)}
+#nar-text b{color:var(--gold)}
+#nar-text em{color:var(--txt);font-style:normal;font-weight:600}
 
-/* ─── MODAL ─── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);
-backdrop-filter:blur(6px);z-index:100;display:none;align-items:center;
-justify-content:center;padding:16px}
-.modal-overlay.active{display:flex}
-.modal{background:var(--card);border:1px solid rgba(245,197,24,.15);
-border-radius:16px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;
-position:relative;animation:modalIn .3s ease}
-@keyframes modalIn{from{opacity:0;transform:scale(.9) translateY(20px)}
-to{opacity:1;transform:scale(1) translateY(0)}}
-.modal-close{position:absolute;top:12px;right:14px;background:none;color:var(--dim);
-font-size:1.3rem;z-index:5;width:32px;height:32px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;transition:.2s}
-.modal-close:hover{background:rgba(255,255,255,.1);color:var(--txt)}
-.modal-img{width:100%;height:180px;object-fit:cover;border-radius:16px 16px 0 0}
-.modal-body{padding:20px}
-.modal-title{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);margin-bottom:12px}
-.modal-text{font-size:.9rem;line-height:1.7;color:var(--dim);margin-bottom:18px}
-.modal-text em{color:var(--gold);font-style:normal;font-weight:600}
-.modal-q{background:var(--card2);border-radius:10px;padding:16px;
-border:1px solid rgba(245,197,24,.08)}
-.modal-q label{display:block;font-size:.85rem;font-weight:600;margin-bottom:10px;
-color:var(--txt)}
-.modal-q .input-row{display:flex;gap:8px}
-.modal-q input{flex:1;padding:10px 14px;border-radius:8px;border:2px solid #2a3040;
-background:#0d1117;color:var(--txt);font-size:.95rem;transition:.2s}
-.modal-q input:focus{border-color:var(--gold)}
-.modal-q input.correct{border-color:var(--green);background:rgba(63,185,80,.08)}
-.modal-q input.wrong{border-color:var(--red);animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}
-40%,80%{transform:translateX(6px)}}
-.btn-answer{background:var(--gold);color:var(--bg);font-weight:700;padding:10px 24px;
-border-radius:8px;font-size:.9rem;transition:.2s;flex-shrink:0}
-.btn-answer:hover{background:var(--gold2)}
-.modal-feedback{margin-top:10px;font-size:.82rem;padding:8px 12px;border-radius:6px;
-display:none}
-.modal-feedback.show{display:block}
-.modal-feedback.success{background:rgba(63,185,80,.1);color:var(--green);
-border:1px solid rgba(63,185,80,.2)}
-.modal-feedback.error{background:rgba(233,69,96,.1);color:var(--red);
-border:1px solid rgba(233,69,96,.2)}
+/* OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(5px);
+z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
+.overlay.show{display:flex}
+.modal{background:var(--card);border:1px solid rgba(245,197,24,.12);border-radius:16px;
+max-width:500px;width:100%;max-height:88vh;overflow-y:auto;position:relative;
+animation:modalUp .3s ease}
+@keyframes modalUp{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:none}}
+.m-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.3);color:#999;
+font-size:1.1rem;z-index:5;width:30px;height:30px;border-radius:50%;display:flex;
+align-items:center;justify-content:center;transition:.2s}
+.m-close:hover{background:rgba(255,255,255,.1);color:#fff}
+.m-header{width:100%;height:160px;display:flex;align-items:center;justify-content:center;
+border-radius:16px 16px 0 0;position:relative;overflow:hidden}
+.m-header img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.m-header .m-emoji{font-size:3.5rem;position:relative;z-index:2;
+text-shadow:0 4px 20px rgba(0,0,0,.5);filter:drop-shadow(0 0 10px rgba(0,0,0,.3))}
+.m-body{padding:18px}
+.m-title{font-family:'Cinzel',Georgia,serif;font-size:1rem;color:var(--gold);margin-bottom:10px}
+.m-text{font-size:.88rem;line-height:1.75;color:var(--dim);margin-bottom:16px}
+.m-text em{color:var(--gold);font-style:normal;font-weight:600}
+.q-box{background:var(--card2);border-radius:10px;padding:14px;border:1px solid rgba(245,197,24,.06)}
+.q-box label{display:block;font-size:.85rem;font-weight:600;margin-bottom:8px;color:var(--txt)}
+.q-row{display:flex;gap:8px}
+.q-row input{flex:1;padding:10px 12px;border-radius:8px;border:2px solid #2a3040;
+background:#0d1117;color:var(--txt);font-size:.92rem;transition:.2s}
+.q-row input:focus{border-color:var(--gold)}
+.q-row input.ok{border-color:var(--green)!important;background:rgba(63,185,80,.06)}
+.q-row input.no{border-color:var(--red)!important;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+.btn-check{background:var(--gold);color:var(--bg);font-weight:700;padding:10px 20px;
+border-radius:8px;font-size:.88rem;transition:.2s;flex-shrink:0}
+.btn-check:hover{background:var(--gold2)}
+.btn-check:active{transform:scale(.95)}
+.feedback{margin-top:8px;font-size:.8rem;padding:7px 10px;border-radius:6px;display:none}
+.feedback.show{display:block}
+.feedback.yes{background:rgba(63,185,80,.1);color:var(--green);border:1px solid rgba(63,185,80,.15)}
+.feedback.nope{background:rgba(233,69,96,.1);color:var(--red);border:1px solid rgba(233,69,96,.15)}
 
-/* ─── CODE MODAL ─── */
-.code-entry{text-align:center;padding:30px 20px}
-.code-entry h3{font-family:'Cinzel',serif;color:var(--gold);margin-bottom:8px;font-size:1.1rem}
-.code-entry p{color:var(--dim);font-size:.85rem;margin-bottom:20px}
-.code-boxes{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
-.code-box{width:52px;height:60px;border:2px solid #2a3040;border-radius:10px;
-background:#0d1117;color:var(--gold);font-family:'Cinzel',serif;font-size:1.6rem;
-font-weight:700;text-align:center;line-height:56px;transition:.3s}
-.code-box.filled{border-color:var(--gold);box-shadow:0 0 12px rgba(245,197,24,.2)}
-.code-box.correct-box{border-color:var(--green);color:var(--green);
-box-shadow:0 0 12px rgba(63,185,80,.3)}
-.code-box.wrong-box{border-color:var(--red);animation:shake .4s}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px;
-margin:0 auto 16px}
-.key{background:var(--card2);color:var(--txt);font-size:1.1rem;font-weight:600;
-padding:14px;border-radius:8px;transition:.15s;border:1px solid rgba(255,255,255,.05)}
-.key:hover{background:var(--gold);color:var(--bg)}
-.key-action{grid-column:span 1}
-.key-clear{background:rgba(233,69,96,.15);color:var(--red)}
-.key-clear:hover{background:var(--red);color:#fff}
-.key-submit{background:rgba(63,185,80,.15);color:var(--green)}
-.key-submit:hover{background:var(--green);color:#fff}
-.code-feedback{font-size:.85rem;min-height:22px}
+/* CODE MODAL */
+.code-wrap{text-align:center;padding:28px 18px}
+.code-wrap h3{font-family:'Cinzel',Georgia,serif;color:var(--gold);margin-bottom:6px;font-size:1.05rem}
+.code-wrap p{color:var(--dim);font-size:.82rem;margin-bottom:6px}
+.revealed-code{display:flex;gap:8px;justify-content:center;margin:14px 0}
+.rev-box{width:44px;height:50px;border:2px dashed #333;border-radius:8px;display:flex;
+align-items:center;justify-content:center;font-family:'Cinzel',Georgia,serif;font-size:1.3rem;
+font-weight:700;color:#555;transition:.3s}
+.rev-box.found{border:2px solid var(--gold);color:var(--gold);border-style:solid;
+box-shadow:0 0 10px rgba(245,197,24,.15)}
+.input-code{display:flex;gap:8px;justify-content:center;margin:14px 0}
+.in-box{width:44px;height:50px;border:2px solid #2a3040;border-radius:8px;background:#0d1117;
+display:flex;align-items:center;justify-content:center;font-family:'Cinzel',Georgia,serif;
+font-size:1.4rem;font-weight:700;color:var(--txt);transition:.3s}
+.in-box.filled{border-color:var(--gold);color:var(--gold)}
+.in-box.right{border-color:var(--green);color:var(--green);box-shadow:0 0 10px rgba(63,185,80,.2)}
+.in-box.wrong{border-color:var(--red);animation:shake .4s}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:220px;margin:10px auto}
+.kp{background:var(--card2);color:var(--txt);font-size:1.05rem;font-weight:600;
+padding:12px;border-radius:8px;transition:.15s;border:1px solid rgba(255,255,255,.04)}
+.kp:hover{background:var(--gold);color:var(--bg)}
+.kp:active{transform:scale(.93)}
+.kp-del{background:rgba(233,69,96,.12);color:var(--red)}
+.kp-del:hover{background:var(--red);color:#fff}
+.kp-go{background:rgba(63,185,80,.12);color:var(--green)}
+.kp-go:hover{background:var(--green);color:#fff}
+.code-fb{font-size:.82rem;min-height:20px;margin-top:6px}
 
-/* ─── ROOM 3 FILL-IN ─── */
-.fill-container{padding:20px}
-.fill-title{font-family:'Cinzel',serif;color:var(--gold);text-align:center;
-margin-bottom:6px;font-size:1.15rem}
-.fill-sub{text-align:center;color:var(--dim);font-size:.85rem;margin-bottom:24px}
-.fill-sentence{background:var(--card2);border-radius:10px;padding:16px;
-margin-bottom:12px;font-size:clamp(.85rem,2vw,1rem);line-height:1.8;display:flex;
-flex-wrap:wrap;align-items:center;gap:6px;border:2px solid transparent;transition:.3s}
-.fill-sentence.correct-sent{border-color:var(--green);background:rgba(63,185,80,.05)}
-.fill-sentence.wrong-sent{border-color:var(--red);animation:shake .4s}
-.fill-input{width:80px;padding:4px 10px;border-radius:6px;border:2px solid #2a3040;
-background:#0d1117;color:var(--gold);font-size:.95rem;text-align:center;font-weight:600}
-.fill-input:focus{border-color:var(--gold)}
-.fill-input.correct-in{border-color:var(--green);color:var(--green);background:rgba(63,185,80,.05)}
-.fill-input.wrong-in{border-color:var(--red);animation:shake .4s}
-.btn-check-all{display:block;margin:20px auto 0;background:var(--gold);color:var(--bg);
-font-weight:700;padding:14px 40px;border-radius:10px;font-size:1rem;
-font-family:'Cinzel',serif;letter-spacing:1px;transition:.2s}
-.btn-check-all:hover{background:var(--gold2);transform:scale(1.03)}
+/* ROOM 3 FILL */
+.fill-wrap{padding:18px}
+.fill-wrap h3{font-family:'Cinzel',Georgia,serif;color:var(--gold);text-align:center;
+margin-bottom:4px;font-size:1.05rem}
+.fill-wrap .sub{text-align:center;color:var(--dim);font-size:.82rem;margin-bottom:18px}
+.fill-wrap .sub b{color:var(--gold)}
+.sent{background:var(--card2);border-radius:10px;padding:14px;margin-bottom:10px;
+font-size:clamp(.82rem,2vw,.95rem);line-height:1.8;display:flex;flex-wrap:wrap;
+align-items:center;gap:5px;border:2px solid transparent;transition:.3s}
+.sent.s-ok{border-color:var(--green);background:rgba(63,185,80,.04)}
+.sent.s-no{border-color:var(--red);animation:shake .4s}
+.fill-in{width:72px;padding:4px 8px;border-radius:6px;border:2px solid #2a3040;
+background:#0d1117;color:var(--gold);font-size:.9rem;text-align:center;font-weight:600;transition:.2s}
+.fill-in:focus{border-color:var(--gold)}
+.fill-in.f-ok{border-color:var(--green);color:var(--green)}
+.fill-in.f-no{border-color:var(--red);animation:shake .4s}
+.btn-final{display:block;margin:16px auto 0;background:var(--gold);color:var(--bg);
+font-weight:700;padding:12px 36px;border-radius:10px;font-size:.95rem;
+font-family:'Cinzel',Georgia,serif;letter-spacing:1px;transition:.2s}
+.btn-final:hover{background:var(--gold2);transform:scale(1.03)}
+.btn-final:active{transform:scale(.97)}
 
-/* ─── INVENTORY PANEL ─── */
-.inv-panel{position:fixed;top:0;right:-360px;width:340px;height:100%;
-background:var(--card);border-left:1px solid rgba(245,197,24,.12);z-index:90;
-transition:.4s;padding:20px;overflow-y:auto}
-.inv-panel.open{right:0}
-.inv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:89;
-display:none}
-.inv-overlay.open{display:block}
-.inv-title{font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;
-margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.inv-close{background:none;color:var(--dim);font-size:1.3rem}
-.inv-card{background:var(--card2);border-radius:8px;padding:12px;margin-bottom:10px;
-border-left:3px solid var(--gold);font-size:.82rem;line-height:1.6;color:var(--dim)}
-.inv-card strong{color:var(--txt)}
-.inv-empty{color:var(--dim);font-size:.85rem;text-align:center;padding:30px 0}
+/* INVENTORY */
+.inv-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:89;display:none}
+.inv-bg.show{display:block}
+.inv-panel{position:fixed;top:0;right:-320px;width:300px;height:100%;background:var(--card);
+border-left:1px solid rgba(245,197,24,.1);z-index:90;transition:.35s;padding:18px;overflow-y:auto}
+.inv-panel.show{right:0}
+.inv-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.inv-top span{font-family:'Cinzel',Georgia,serif;color:var(--gold);font-size:.95rem}
+.inv-x{background:none;color:#888;font-size:1.2rem}
+.inv-card{background:var(--card2);border-radius:8px;padding:11px;margin-bottom:8px;
+border-left:3px solid var(--gold);font-size:.78rem;line-height:1.65;color:var(--dim)}
+.inv-card b{color:var(--txt)}
+.inv-empty{color:#555;font-size:.82rem;text-align:center;padding:30px 0}
 
-/* ─── VICTORY / GAME OVER ─── */
-#victory{background:linear-gradient(160deg,#0a1a0a,#0d1a12,#0a140a);
-align-items:center;justify-content:center;text-align:center;padding:24px}
-#victory::before{content:'';position:absolute;inset:0;
-background:radial-gradient(circle at 50% 40%,rgba(63,185,80,.08),transparent 60%)}
-.victory-icon{font-size:clamp(3rem,8vw,5rem);margin-bottom:16px;animation:bounce 1s infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.victory-title{font-family:'Cinzel',serif;font-size:clamp(1.6rem,5vw,2.8rem);
-font-weight:900;color:var(--green);margin-bottom:12px;
-text-shadow:0 0 40px rgba(63,185,80,.3)}
-.victory-sub{font-size:clamp(.85rem,2vw,1.05rem);color:var(--dim);max-width:500px;
-line-height:1.8;margin-bottom:28px}
-.victory-family{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
-.victory-member{text-align:center}
-.victory-member img{width:64px;height:64px;border-radius:50%;object-fit:cover;
-border:3px solid var(--green);margin-bottom:6px}
-.victory-member .vm-name{font-size:.78rem;font-weight:600}
-.victory-time{background:var(--card);padding:10px 24px;border-radius:20px;
-display:inline-block;font-size:.85rem;margin-bottom:20px;
-border:1px solid rgba(63,185,80,.2)}
-.btn-restart{background:var(--green);color:#fff;font-weight:700;padding:14px 36px;
-border-radius:50px;font-size:1rem;transition:.2s}
-.btn-restart:hover{transform:scale(1.05)}
+/* VICTORY */
+#victory{align-items:center;justify-content:center;text-align:center;padding:20px;
+background:radial-gradient(ellipse at 50% 40%,#0d1a12,#0a0e17 70%)}
+.v-icon{font-size:clamp(3rem,8vw,4.5rem);margin-bottom:12px;animation:bounce 1s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.v-title{font-family:'Cinzel',Georgia,serif;font-size:clamp(1.5rem,5vw,2.6rem);
+font-weight:900;color:var(--green);margin-bottom:10px;text-shadow:0 0 30px rgba(63,185,80,.2)}
+.v-sub{font-size:clamp(.82rem,2vw,1rem);color:var(--dim);max-width:480px;line-height:1.8;margin-bottom:24px}
+.v-family{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.v-member{text-align:center}
+.v-member .vm-av{width:56px;height:56px;border-radius:50%;border:3px solid var(--green);
+display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 5px;background:var(--card)}
+.v-member .vm-n{font-size:.72rem;font-weight:600}
+.v-time{background:var(--card);padding:8px 20px;border-radius:20px;display:inline-block;
+font-size:.82rem;margin-bottom:18px;border:1px solid rgba(63,185,80,.15)}
+.btn-again{background:var(--green);color:#fff;font-weight:700;padding:12px 32px;
+border-radius:50px;font-size:.95rem;transition:.2s}
+.btn-again:hover{transform:scale(1.05)}
 
-#gameover{background:linear-gradient(160deg,#1a0a0a,#1a0d0d,#140a0a);
-align-items:center;justify-content:center;text-align:center;padding:24px}
-.go-icon{font-size:clamp(3rem,8vw,5rem);margin-bottom:16px}
-.go-title{font-family:'Cinzel',serif;font-size:clamp(1.6rem,5vw,2.5rem);
-color:var(--red);margin-bottom:12px;text-shadow:0 0 40px rgba(233,69,96,.3)}
-.go-sub{color:var(--dim);font-size:1rem;margin-bottom:28px;max-width:400px;line-height:1.7}
-.btn-retry{background:var(--red);color:#fff;font-weight:700;padding:14px 36px;
-border-radius:50px;font-size:1rem;transition:.2s}
+/* GAME OVER */
+#gameover{align-items:center;justify-content:center;text-align:center;padding:20px;
+background:radial-gradient(ellipse at 50% 40%,#1a0d0d,#0a0e17 70%)}
+.go-icon{font-size:clamp(3rem,8vw,4.5rem);margin-bottom:12px}
+.go-title{font-family:'Cinzel',Georgia,serif;font-size:clamp(1.5rem,5vw,2.4rem);
+color:var(--red);margin-bottom:10px}
+.go-sub{color:var(--dim);font-size:.95rem;margin-bottom:24px;max-width:380px;line-height:1.7}
+.btn-retry{background:var(--red);color:#fff;font-weight:700;padding:12px 32px;
+border-radius:50px;font-size:.95rem;transition:.2s}
 .btn-retry:hover{transform:scale(1.05)}
 
-/* ─── ROOM 3 CENTERED ─── */
-.room3-center{position:absolute;inset:0;z-index:5;display:flex;
-align-items:center;justify-content:center;padding:16px}
-.room3-card{background:rgba(21,27,43,.95);backdrop-filter:blur(10px);
-border:1px solid rgba(245,197,24,.15);border-radius:16px;max-width:560px;
-width:100%;padding:8px;max-height:85vh;overflow-y:auto}
+/* R3 center */
+.r3-center{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:16px}
+.r3-card{background:rgba(21,27,43,.93);backdrop-filter:blur(8px);border:1px solid rgba(245,197,24,.12);
+border-radius:16px;padding:30px 20px;text-align:center;max-width:400px;width:100%}
+.r3-card h3{font-family:'Cinzel',Georgia,serif;color:var(--gold);margin-bottom:8px}
+.r3-card p{color:var(--dim);font-size:.88rem;margin-bottom:18px;line-height:1.6}
 
-/* ─── RESPONSIVE ─── */
-@media(max-width:600px){
-  #topbar{padding:8px 12px}
-  .tb-item{padding:4px 8px;font-size:.7rem}
-  .tb-btn{padding:4px 10px;font-size:.7rem}
-  .room-obj{width:52px;height:52px}
-  .room-obj .emoji{font-size:1.1rem}
-  .room-obj .label{font-size:.48rem}
-  .door-lock{width:54px;height:70px}
-  .door-lock .lock-icon{font-size:1.3rem}
-  .door-lock .lock-label{font-size:.45rem}
-  .code-dot{width:8px;height:8px}
-  #narration{padding:10px 14px;min-height:64px}
-  .narrator-avatar{width:36px;height:36px;font-size:1.1rem}
-  .narrator-text{font-size:.78rem}
-  .modal{max-width:100%;border-radius:12px}
-  .modal-img{height:130px}
-  .code-box{width:44px;height:50px;font-size:1.3rem;line-height:46px}
-  .inv-panel{width:280px}
-}
-
-/* ─── SPARKLE FOR VICTORY ─── */
+/* SPARKLE */
 .sparkles{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
-.sparkle{position:absolute;width:6px;height:6px;border-radius:50%;animation:fall linear forwards}
-@keyframes fall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}
-100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.sp{position:absolute;width:6px;height:6px;border-radius:50%;animation:fall linear forwards}
+@keyframes fall{0%{opacity:1;transform:translateY(-10px) rotate(0)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
 
-/* Scrollbar */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
+@media(max-width:600px){
+.obj-btn{width:48px;height:48px}.obj-btn .emo{font-size:1rem}.obj-btn .lbl{font-size:.4rem}
+.door{width:50px;height:64px}.door .d-icon{font-size:1.1rem}.door .d-label{font-size:.4rem}
+.dot{width:7px;height:7px}
+#narration{padding:8px 12px;min-height:56px}
+.nar-av{width:34px;height:34px;font-size:1rem}
+.modal{max-width:100%;margin:8px}
+.m-header{height:120px}
+.rev-box,.in-box{width:38px;height:42px;font-size:1.1rem}
+.inv-panel{width:260px}
+}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--card2);border-radius:3px}
 </style>
 </head>
 <body>
 
-<!-- ══════ INTRO SCREEN ══════ -->
+<!-- ═══ INTRO ═══ -->
 <div id="intro" class="screen active">
   <div class="intro-badge">🔍 Detective Case File #0042</div>
   <h1 class="intro-title">The Johnson Mystery</h1>
   <div class="intro-story">
     Detective Sam receives a strange message:<br>
-    <em>"The Johnson family has vanished from their home."</em><br><br>
-    Their house is locked. The only way to find them is to <em>learn everything about them</em> —
+    <b>"The Johnson family has vanished from their home."</b><br><br>
+    Their house is locked. The only way to find them is to <b>learn everything about them</b> —
     who they are, where they are from, and what they love.<br><br>
-    Can <em>you</em> solve the mystery?
+    Can <b>you</b> solve the mystery?
   </div>
-  <div class="intro-chars" id="introChars"></div>
-  <button class="btn-start" onclick="startGame()">Begin Investigation</button>
+  <div class="intro-chars" id="intro-chars"></div>
+  <button class="btn-start" id="btn-start">Begin Investigation</button>
 </div>
 
-<!-- ══════ GAME SCREEN ══════ -->
+<!-- ═══ GAME ═══ -->
 <div id="game" class="screen">
-  <!-- Top Bar -->
   <div id="topbar">
-    <div class="tb-room" id="tbRoom">Room 1</div>
+    <div class="tb-room" id="tb-room">Room 1</div>
     <div class="tb-group">
-      <div class="tb-item"><span class="icon">⏱️</span><span id="timer">20:00</span></div>
-      <div class="tb-item"><span class="icon">💡</span><span id="hintCount">3</span></div>
-      <div class="tb-item"><span class="icon">🃏</span><span id="clueCount">0</span></div>
-      <button class="tb-btn" onclick="useHint()">Hint</button>
-      <button class="tb-btn" onclick="toggleInventory()">Clues</button>
+      <div class="tb-pill"><span class="ic">⏱️</span><span id="timer">20:00</span></div>
+      <div class="tb-pill"><span class="ic">💡</span><span id="tb-hints">3</span></div>
+      <div class="tb-pill"><span class="ic">🃏</span><span id="tb-clues">0</span></div>
+      <button class="tb-btn" id="btn-hint">Hint</button>
+      <button class="tb-btn" id="btn-inv">Clues</button>
     </div>
   </div>
-  <!-- Room -->
-  <div id="room-container">
-    <div id="room-bg"></div>
-  </div>
-  <!-- Narration -->
+  <div id="room-wrap"><div id="room-bg"></div></div>
   <div id="narration">
-    <div class="narrator-avatar">🕵️</div>
-    <div class="narrator-text" id="narratorText">Welcome, detective.</div>
+    <div class="nar-av">🕵️</div>
+    <div id="nar-text">Welcome, detective.</div>
   </div>
 </div>
 
-<!-- ══════ VICTORY ══════ -->
+<!-- ═══ VICTORY ═══ -->
 <div id="victory" class="screen">
   <div class="sparkles" id="sparkles"></div>
-  <div class="victory-icon">🎉</div>
-  <h1 class="victory-title">Case Solved!</h1>
-  <div class="victory-sub">
-    You found the Johnson family! They are safe and together again.
-    <br>Great work, Detective!
-  </div>
-  <div class="victory-family" id="victoryFamily"></div>
-  <div class="victory-time" id="victoryTime">Time: 00:00</div>
-  <br>
-  <button class="btn-restart" onclick="location.reload()">Play Again</button>
+  <div class="v-icon">🎉</div>
+  <h1 class="v-title">Case Solved!</h1>
+  <div class="v-sub">You found the Johnson family! They are safe and together again.<br>Great work, Detective!</div>
+  <div class="v-family" id="v-family"></div>
+  <div class="v-time" id="v-time">⏱️ Time: 00:00</div><br>
+  <button class="btn-again" id="btn-again">Play Again</button>
 </div>
 
-<!-- ══════ GAME OVER ══════ -->
+<!-- ═══ GAME OVER ═══ -->
 <div id="gameover" class="screen">
   <div class="go-icon">⏰</div>
   <h1 class="go-title">Time's Up!</h1>
-  <div class="go-sub">The Johnson family is still missing. The mystery remains unsolved… Try again, Detective!</div>
-  <button class="btn-retry" onclick="location.reload()">Try Again</button>
+  <div class="go-sub">The Johnson family is still missing… Try again, Detective!</div>
+  <button class="btn-retry" id="btn-retry">Try Again</button>
 </div>
 
-<!-- ══════ CLUE MODAL ══════ -->
-<div class="modal-overlay" id="clueOverlay">
-  <div class="modal" id="clueModal">
-    <button class="modal-close" onclick="closeClueModal()">✕</button>
-    <img class="modal-img" id="clueImg" src="" alt="Clue">
-    <div class="modal-body">
-      <div class="modal-title" id="clueTitle"></div>
-      <div class="modal-text" id="clueText"></div>
-      <div class="modal-q" id="clueQuestion">
-        <label id="clueQLabel"></label>
-        <div class="input-row">
-          <input type="text" id="clueQInput" placeholder="Type your answer..." autocomplete="off">
-          <button class="btn-answer" onclick="submitClueAnswer()">Check</button>
+<!-- ═══ CLUE MODAL ═══ -->
+<div class="overlay" id="ov-clue">
+  <div class="modal">
+    <button class="m-close" id="clue-close">✕</button>
+    <div class="m-header" id="clue-header">
+      <img id="clue-img" src="" alt="Clue" onerror="this.style.display='none'">
+      <span class="m-emoji" id="clue-emoji"></span>
+    </div>
+    <div class="m-body">
+      <div class="m-title" id="clue-title"></div>
+      <div class="m-text" id="clue-text"></div>
+      <div class="q-box" id="clue-qbox">
+        <label id="clue-qlabel"></label>
+        <div class="q-row">
+          <input type="text" id="clue-input" placeholder="Type your answer..." autocomplete="off">
+          <button class="btn-check" id="clue-submit">Check</button>
         </div>
-        <div class="modal-feedback" id="clueFeedback"></div>
+        <div class="feedback" id="clue-fb"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════ CODE MODAL ══════ -->
-<div class="modal-overlay" id="codeOverlay">
+<!-- ═══ CODE MODAL ═══ -->
+<div class="overlay" id="ov-code">
   <div class="modal">
-    <button class="modal-close" onclick="closeCodeModal()">✕</button>
-    <div class="code-entry">
-      <h3>🔒 Enter the Code</h3>
-      <p id="codeHintText">Answer all questions to reveal the code!</p>
-      <div class="code-boxes" id="codeBoxes"></div>
+    <button class="m-close" id="code-close">✕</button>
+    <div class="code-wrap">
+      <h3>🔒 Unlock the Door</h3>
+      <p id="code-status">Find clues to reveal the code!</p>
+      <div style="font-size:.72rem;color:var(--dim);margin-bottom:4px">REVEALED CODE:</div>
+      <div class="revealed-code" id="rev-boxes"></div>
+      <div style="font-size:.72rem;color:var(--dim);margin-bottom:4px">YOUR INPUT:</div>
+      <div class="input-code" id="in-boxes"></div>
       <div class="keypad" id="keypad"></div>
-      <div class="code-feedback" id="codeFeedback"></div>
+      <div class="code-fb" id="code-fb"></div>
     </div>
   </div>
 </div>
 
-<!-- ══════ ROOM 3 MODAL ══════ -->
-<div class="modal-overlay" id="room3Overlay">
-  <div class="modal" style="max-width:580px">
-    <button class="modal-close" onclick="closeRoom3Modal()">✕</button>
-    <div class="fill-container">
-      <div class="fill-title">🔐 The Final Challenge</div>
-      <div class="fill-sub">Complete the sentences about the Johnson family.<br>Use the verb TO BE: <strong>am, is, are</strong></div>
-      <div id="fillSentences"></div>
-      <div class="modal-feedback" id="fillFeedback" style="text-align:center;margin-top:10px"></div>
-      <button class="btn-check-all" onclick="checkFillBlanks()">✓ Check Answers</button>
+<!-- ═══ ROOM 3 MODAL ═══ -->
+<div class="overlay" id="ov-r3">
+  <div class="modal" style="max-width:540px">
+    <button class="m-close" id="r3-close">✕</button>
+    <div class="fill-wrap">
+      <h3>🔐 The Final Challenge</h3>
+      <div class="sub">Complete the sentences using the verb TO BE:<br><b>am, is, are</b></div>
+      <div id="fill-sents"></div>
+      <div class="feedback" id="fill-fb" style="text-align:center;margin-top:8px"></div>
+      <button class="btn-final" id="btn-fill-check">✓ Check Answers</button>
     </div>
   </div>
 </div>
 
-<!-- ══════ INVENTORY PANEL ══════ -->
-<div class="inv-overlay" id="invOverlay" onclick="toggleInventory()"></div>
-<div class="inv-panel" id="invPanel">
-  <div class="inv-title">
+<!-- ═══ INVENTORY ═══ -->
+<div class="inv-bg" id="inv-bg"></div>
+<div class="inv-panel" id="inv-panel">
+  <div class="inv-top">
     <span>🃏 Clue Cards</span>
-    <button class="inv-close" onclick="toggleInventory()">✕</button>
+    <button class="inv-x" id="inv-close">✕</button>
   </div>
-  <div id="invCards"></div>
+  <div id="inv-cards"></div>
 </div>
 
 <script>
-// ═══════════════════════════════════════
-//  GAME DATA
-// ═══════════════════════════════════════
-const CHARACTERS = [
-  { name:'Tom Johnson', role:'Father, 45', img:'https://source.unsplash.com/200x200/?man,suit,portrait', age:45, from:'London', color:'blue', animal:'dog' },
-  { name:'Mary Johnson', role:'Mother, 42', img:'https://source.unsplash.com/200x200/?woman,elegant,portrait', age:42, from:'Paris', color:'red', animal:'cat' },
-  { name:'Leo Johnson', role:'Son, 16', img:'https://source.unsplash.com/200x200/?teenager,boy,portrait', age:16, from:'London', color:'', animal:'turtle' },
-  { name:'Emma Johnson', role:'Daughter, 12', img:'https://source.unsplash.com/200x200/?young,girl,portrait', age:12, from:'London', color:'pink', animal:'horse' }
+// ════════════════════════════════════
+// GAME DATA
+// ════════════════════════════════════
+const CHARS = [
+  {name:'Tom Johnson', role:'Father, 45', emoji:'👨‍💼', color:'#2563eb'},
+  {name:'Mary Johnson', role:'Mother, 42', emoji:'👩‍🦰', color:'#dc2626'},
+  {name:'Leo Johnson', role:'Son, 16', emoji:'👦', color:'#16a34a'},
+  {name:'Emma Johnson', role:'Daughter, 12', emoji:'👧', color:'#ec4899'}
 ];
 
 const ROOMS = {
-  1: {
-    name: 'Room 1 — The Living Room 🛋️',
-    bg: 'https://source.unsplash.com/800x500/?cozy,livingroom,warm',
-    bgFallback: 'linear-gradient(135deg,#2d1f0e,#4a3520,#2d1f0e)',
-    intro: "You enter the Johnson family's living room. It feels <strong>warm</strong> but empty. Look around — there are <strong>clues</strong> everywhere! Click on the glowing objects to investigate.",
-    code: '4215',
-    hints: [
-      "💡 Look at the family photo carefully. What color is Tom's shirt?",
-      "💡 The letter mentions someone's birthday. How old is she?",
-      "💡 Check the calendar. Where does Tom fly from?"
+  1:{
+    name:'Room 1 — The Living Room 🛋️',
+    bg:'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&h=500&fit=crop',
+    grad:'linear-gradient(135deg,#3d2b1f,#5c3d2e,#2d1f15)',
+    intro:'You enter the Johnson family\'s living room. It feels <b>warm</b> but empty. Look around — there are <b>clues</b> everywhere! Click on the glowing objects to investigate.',
+    code:'4215',
+    hints:[
+      '💡 Look at the family photo carefully. What color does Tom always wear?',
+      '💡 The letter mentions a birthday. How old is Mary now?',
+      '💡 Check the calendar. What city is Tom\'s flight from?'
     ],
-    objects: [
+    objects:[
       {
-        emoji:'📸', label:'Photo', top:'20%', left:'12%',
-        img:'https://source.unsplash.com/400x300/?family,photo,portrait',
+        emoji:'📸',label:'Photo',top:'22%',left:'12%',
+        img:'https://images.unsplash.com/photo-1609220136736-443140cffec6?w=500&h=280&fit=crop',
+        headerColor:'#1a3a5c',
         title:'📸 Family Photo',
-        text:'You find a family photo on the wall. Tom Johnson is smiling. He is wearing a <em>blue</em> shirt. He always wears blue — it is his <em>favorite color</em>!',
+        text:'You find a family photo on the wall. Tom Johnson is smiling. He is wearing a <em>blue</em> shirt — he always wears blue. It is his <em>favorite color</em>!',
         question:'What is Tom\'s favorite color?',
         answer:'blue',
         clue:'Tom\'s favorite color is blue.',
-        wrongHint:'Look at Tom\'s shirt in the photo. What color is it?',
-        digit: 0
+        hint:'Look at Tom\'s shirt. What color is it?'
       },
       {
-        emoji:'✉️', label:'Letter', top:'55%', left:'30%',
-        img:'https://source.unsplash.com/400x300/?letter,handwritten,paper',
+        emoji:'✉️',label:'Letter',top:'55%',left:'28%',
+        img:'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=500&h=280&fit=crop',
+        headerColor:'#3d2b1f',
         title:'✉️ A Birthday Letter',
         text:'"Dear Mary,<br>Happy <em>42nd</em> Birthday!<br>With all my love, Tom.<br>P.S. I remember when we first met in Paris."',
         question:'How old is Mary?',
         answer:'42',
         clue:'Mary is 42 years old.',
-        wrongHint:'Read the letter again. It says "Happy ___th Birthday".',
-        digit: 1
+        hint:'Read the letter again. It says "Happy ___th Birthday".'
       },
       {
-        emoji:'📅', label:'Calendar', top:'18%', left:'62%',
-        img:'https://source.unsplash.com/400x300/?calendar,wall',
+        emoji:'📅',label:'Calendar',top:'20%',left:'58%',
+        img:'https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=500&h=280&fit=crop',
+        headerColor:'#2a1a3a',
         title:'📅 Wall Calendar',
-        text:'The calendar has a note written in pen: "<em>Tom\'s flight: London → Home</em>." Tom misses his hometown. Tom is from <em>London</em>!',
+        text:'The calendar has a note: "<em>Tom\'s flight: London → Home</em>." Tom misses his hometown. Tom is from <em>London</em>!',
         question:'Where is Tom from?',
         answer:'london',
         clue:'Tom is from London.',
-        wrongHint:'Check the calendar. What city does the flight depart from?',
-        digit: 2
+        hint:'What city does the flight depart from?'
       },
       {
-        emoji:'🐕', label:'Collar', top:'65%', left:'70%',
-        img:'https://source.unsplash.com/400x300/?dog,collar,pet',
+        emoji:'🐕',label:'Dog Collar',top:'68%',left:'65%',
+        img:'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=500&h=280&fit=crop',
+        headerColor:'#2d3a1f',
         title:'🐕 Dog Collar',
         text:'You find a dog collar on the sofa. The tag says: "<em>Max</em> — Tom\'s best friend." Tom\'s favorite animal is a <em>dog</em>!',
         question:'What is Tom\'s favorite animal?',
         answer:'dog',
         clue:'Tom\'s favorite animal is a dog.',
-        wrongHint:'Read the collar tag. What kind of animal is Max?',
-        digit: 3
+        hint:'Read the collar tag. What kind of animal is Max?'
       }
     ]
   },
-  2: {
-    name: 'Room 2 — The Bedrooms 🛏️',
-    bg: 'https://source.unsplash.com/800x500/?bedroom,cozy,interior',
-    bgFallback: 'linear-gradient(135deg,#1a1a2e,#16213e,#1a1a2e)',
-    intro: "You enter the bedrooms. Each family member has personal things here. Search for <strong>diaries, photos, and notebooks</strong> to learn more about the family!",
-    code: '7382',
-    hints: [
-      "💡 Leo writes about his pet in his diary. What kind of animal is it?",
-      "💡 Look at Emma's photo frame. How old is she now?",
-      "💡 Mary paints with one color. What color does she love?"
+  2:{
+    name:'Room 2 — The Bedrooms 🛏️',
+    bg:'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=900&h=500&fit=crop',
+    grad:'linear-gradient(135deg,#1a1a2e,#16213e,#1a1a2e)',
+    intro:'You enter the bedrooms. Each family member has personal things here. Search for <b>diaries, photos, and notebooks</b> to learn more!',
+    code:'7382',
+    hints:[
+      '💡 Leo writes about his pet in his diary. What kind of animal is it?',
+      '💡 Look at Emma\'s photo frame. How old is she now?',
+      '💡 Mary paints with one color. What color does she love?'
     ],
-    objects: [
+    objects:[
       {
-        emoji:'📔', label:'Diary', top:'35%', left:'10%',
-        img:'https://source.unsplash.com/400x300/?diary,journal,book',
+        emoji:'📔',label:'Diary',top:'35%',left:'10%',
+        img:'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&h=280&fit=crop',
+        headerColor:'#2a2a1a',
         title:'📔 Leo\'s Diary',
-        text:'"Today I fed my <em>turtle</em>, Shelly. Turtles are the best animals in the world! I am 16 years old, and Shelly is my best friend." — Leo',
+        text:'"Today I fed my <em>turtle</em>, Shelly. Turtles are the best animals! I am 16 years old, and Shelly is my best friend." — Leo',
         question:'What is Leo\'s favorite animal?',
         answer:'turtle',
         clue:'Leo\'s favorite animal is a turtle.',
-        wrongHint:'Leo writes about feeding his pet. What kind of pet is Shelly?',
-        digit: 0
+        hint:'Leo writes about feeding his pet. What kind of pet is Shelly?'
       },
       {
-        emoji:'🖼️', label:'Pet Photo', top:'22%', left:'40%',
-        img:'https://source.unsplash.com/400x300/?horse,girl,pet',
+        emoji:'🖼️',label:'Photo',top:'22%',left:'42%',
+        img:'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=500&h=280&fit=crop',
+        headerColor:'#1a2a20',
         title:'🖼️ Emma\'s Photo',
-        text:'A photo on the nightstand shows a young girl riding a horse. The frame says: "<em>Emma ♥ Star</em> — Best friends since Emma was 10. Now she is <em>12</em>!"',
+        text:'A photo shows a young girl riding a horse. The frame says: "<em>Emma ♥ Star</em> — Best friends since she was 10. Now she is <em>12</em>!"',
         question:'How old is Emma?',
         answer:'12',
         clue:'Emma is 12 years old. She loves horses.',
-        wrongHint:'Read the frame text. It says "Now she is ___!"',
-        digit: 1
+        hint:'Read the frame text. It says "Now she is ___!"'
       },
       {
-        emoji:'📓', label:'Notebook', top:'55%', left:'55%',
-        img:'https://source.unsplash.com/400x300/?art,notebook,red,painting',
-        title:'📓 Mary\'s Art Notebook',
-        text:'You find Mary\'s art notebook. Every page is painted in <em>RED</em>. A note says: "<em>Red</em> is the color of love. Red is my <em>favorite color</em>!" — Mary',
+        emoji:'🎨',label:'Notebook',top:'58%',left:'52%',
+        img:'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&h=280&fit=crop',
+        headerColor:'#3a1a1a',
+        title:'🎨 Mary\'s Art Notebook',
+        text:'You find Mary\'s art notebook. Every page is painted in <em>RED</em>. A note says: "<em>Red</em> is the color of love. It is my <em>favorite color</em>!" — Mary',
         question:'What is Mary\'s favorite color?',
         answer:'red',
         clue:'Mary\'s favorite color is red.',
-        wrongHint:'Look at the paintings. What color does Mary use most?',
-        digit: 2
+        hint:'What color does Mary use most in her paintings?'
       },
       {
-        emoji:'🎨', label:'Drawing', top:'65%', left:'22%',
-        img:'https://source.unsplash.com/400x300/?child,drawing,crayon',
-        title:'🎨 A Family Drawing',
+        emoji:'✏️',label:'Drawing',top:'65%',left:'22%',
+        img:'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=500&h=280&fit=crop',
+        headerColor:'#2a1a3a',
+        title:'✏️ A Family Drawing',
         text:'A child\'s drawing shows four people: "Dad Tom, Mom Mary, brother Leo, and me — <em>Emma</em>!" Emma is Tom\'s <em>daughter</em>.',
         question:'Who is Tom\'s daughter?',
         answer:'emma',
         clue:'Emma is Tom\'s daughter. Leo is Tom\'s son.',
-        wrongHint:'Look at who drew this picture. She writes "me — ___!"',
-        digit: 3
+        hint:'Look at who drew this picture. She writes "me — ___!"'
       }
     ]
   },
-  3: {
-    name: 'Room 3 — The Secret Room 🔐',
-    bg: 'https://source.unsplash.com/800x500/?dark,mysterious,room,door',
-    bgFallback: 'linear-gradient(135deg,#0d0d1a,#1a0d1a,#0d0d0d)',
-    intro: "You found a <strong>secret room</strong>! The last lock needs the correct <strong>grammar</strong> to open. Complete the sentences using <strong>am, is,</strong> or <strong>are</strong>. This is your <strong>final challenge</strong>!",
-    hints: [
-      "💡 Use IS for one person or thing: Tom IS, Mary IS, it IS.",
-      "💡 Use ARE for two or more people: They ARE, We ARE, Tom and Mary ARE.",
-      "💡 Use AM only with I: I AM a detective."
+  3:{
+    name:'Room 3 — The Secret Room 🔐',
+    bg:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=900&h=500&fit=crop',
+    grad:'linear-gradient(135deg,#0d0d1a,#1a0d1a,#0d0d0d)',
+    intro:'You found a <b>secret room</b>! The last lock needs the correct <b>grammar</b> to open. Complete the sentences using <b>am, is,</b> or <b>are</b>. This is your <b>final challenge</b>!',
+    hints:[
+      '💡 Use IS for one person or thing: Tom IS 45.',
+      '💡 Use ARE for two or more: They ARE the parents.',
+      '💡 "I AM" — "He/She/It IS" — "We/They ARE"'
     ],
-    sentences: [
-      { parts:['Tom','___','45 years old.'], answer:'is' },
-      { parts:['Mary and Tom','___','the parents.'], answer:'are' },
-      { parts:['Emma\'s favorite animal','___','a horse.'], answer:'is' },
-      { parts:['Leo','___','16 years old.'], answer:'is' },
-      { parts:['The children','___','Leo and Emma.'], answer:'are' }
+    sentences:[
+      {before:'Tom',after:'45 years old.',answer:'is'},
+      {before:'Mary and Tom',after:'the parents.',answer:'are'},
+      {before:"Emma's favorite animal",after:'a horse.',answer:'is'},
+      {before:'Leo',after:'16 years old.',answer:'is'},
+      {before:'The children',after:'Leo and Emma.',answer:'are'}
     ]
   }
 };
 
-// ═══════════════════════════════════════
-//  GAME STATE
-// ═══════════════════════════════════════
-let state = {
+// ════════════════════════════════════
+// GAME STATE
+// ════════════════════════════════════
+let S = {
   room: 0,
-  timer: 1200,
-  timerInterval: null,
+  time: 1200,
+  tick: null,
   hints: {1:3, 2:3, 3:3},
   clues: [],
-  answered: {1:[false,false,false,false], 2:[false,false,false,false]},
-  currentObj: null,
-  codeInput: '',
-  startTime: 0
+  done: {1:[false,false,false,false], 2:[false,false,false,false]},
+  cur: null,
+  codeIn: '',
+  t0: 0
 };
 
-// ═══════════════════════════════════════
-//  INITIALIZATION
-// ═══════════════════════════════════════
-function init() {
-  // Render intro characters
-  const cc = document.getElementById('introChars');
-  CHARACTERS.forEach(c => {
-    cc.innerHTML += `<div class="intro-char">
-      <img src="${c.img}" alt="${c.name}" onerror="this.style.background='var(--card2)'">
-      <div class="name">${c.name}</div>
-      <div class="role">${c.role}</div>
-    </div>`;
+// ════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════
+function $(id){return document.getElementById(id)}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active')}
+function narrate(html){$('nar-text').innerHTML=html}
+
+// ════════════════════════════════════
+// INIT INTRO
+// ════════════════════════════════════
+(function initIntro(){
+  var h='';
+  CHARS.forEach(function(c){
+    h+='<div class="char-card"><div class="char-avatar" style="background:'+c.color+'22;border-color:'+c.color+'">'+c.emoji+'</div><div class="c-name">'+c.name+'</div><div class="c-role">'+c.role+'</div></div>';
   });
-}
-init();
+  $('intro-chars').innerHTML=h;
+})();
 
-// ═══════════════════════════════════════
-//  GAME FLOW
-// ═══════════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function startGame() {
-  state.startTime = Date.now();
-  state.room = 1;
-  showScreen('game');
+// ════════════════════════════════════
+// START GAME
+// ════════════════════════════════════
+$('btn-start').addEventListener('click',function(){
+  S.t0=Date.now();
+  S.room=1;
+  show('game');
   enterRoom(1);
   startTimer();
+});
+
+$('btn-again').addEventListener('click',function(){location.reload()});
+$('btn-retry').addEventListener('click',function(){location.reload()});
+
+// ════════════════════════════════════
+// TIMER
+// ════════════════════════════════════
+function startTimer(){
+  S.tick=setInterval(function(){
+    S.time--;
+    if(S.time<=0){clearInterval(S.tick);show('gameover');return}
+    var m=Math.floor(S.time/60),s=S.time%60;
+    var el=$('timer');
+    el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(S.time<=120)el.classList.add('warn');else el.classList.remove('warn');
+  },1000);
 }
 
-function enterRoom(num) {
-  state.room = num;
-  const room = ROOMS[num];
+// ════════════════════════════════════
+// ENTER ROOM
+// ════════════════════════════════════
+function enterRoom(num){
+  S.room=num;
+  var r=ROOMS[num];
 
-  // Update top bar
-  document.getElementById('tbRoom').textContent = room.name;
-  document.getElementById('hintCount').textContent = state.hints[num];
+  $('tb-room').textContent=r.name;
+  $('tb-hints').textContent=S.hints[num];
+  $('tb-clues').textContent=S.clues.length;
 
-  // Set background
-  const bg = document.getElementById('room-bg');
-  bg.style.backgroundImage = `url('${room.bg}')`;
-  bg.style.background = room.bgFallback;
-  bg.style.backgroundImage = `url('${room.bg}')`;
-  bg.style.backgroundSize = 'cover';
-  bg.style.backgroundPosition = 'center';
-  bg.innerHTML = '';
+  var bg=$('room-bg');
+  bg.innerHTML='';
+  bg.style.background=r.grad;
+  // Try loading image
+  var testImg=new Image();
+  testImg.onload=function(){bg.style.backgroundImage="url('"+r.bg+"')";bg.style.backgroundSize='cover';bg.style.backgroundPosition='center'};
+  testImg.src=r.bg;
 
-  if (num <= 2) {
-    // Render objects
-    room.objects.forEach((obj, i) => {
-      const done = state.answered[num][i];
-      const el = document.createElement('div');
-      el.className = 'room-obj' + (done ? ' done' : '');
-      el.style.top = obj.top;
-      el.style.left = obj.left;
-      el.innerHTML = `<span class="emoji">${obj.emoji}</span><span class="label">${obj.label}</span>`;
-      if (!done) el.onclick = () => openClueModal(num, i);
+  if(num<=2){
+    r.objects.forEach(function(obj,i){
+      var done=S.done[num][i];
+      var el=document.createElement('div');
+      el.className='obj-btn'+(done?' solved':'');
+      el.style.top=obj.top;
+      el.style.left=obj.left;
+      el.innerHTML='<span class="emo">'+obj.emoji+'</span><span class="lbl">'+obj.label+'</span>';
+      if(!done){
+        (function(rn,idx){
+          el.addEventListener('click',function(){openClue(rn,idx)});
+        })(num,i);
+      }
       bg.appendChild(el);
     });
 
-    // Render door lock
-    const door = document.createElement('div');
-    door.className = 'door-lock';
-    door.onclick = () => openCodeModal(num);
-    const revealedCount = state.answered[num].filter(Boolean).length;
-    const allDone = revealedCount === room.objects.length;
-    if (allDone) door.classList.add('unlocked');
-    door.innerHTML = `
-      <span class="lock-icon">${allDone ? '🔓' : '🔒'}</span>
-      <span class="lock-label">${allDone ? 'OPEN' : 'LOCKED'}</span>
-      <div class="code-dots">${room.code.split('').map((_, i) =>
-        `<span class="code-dot ${state.answered[num][i] ? 'revealed' : ''}"></span>`
-      ).join('')}</div>`;
+    // Door
+    var allDone=S.done[num].every(function(v){return v});
+    var door=document.createElement('div');
+    door.className='door'+(allDone?' open':'');
+    door.innerHTML='<span class="d-icon">'+(allDone?'🔓':'🔒')+'</span><span class="d-label">'+(allDone?'OPEN':'LOCKED')+'</span><div class="dots">'+r.code.split('').map(function(_,i){return '<span class="dot'+(S.done[num][i]?' on':'')+'"></span>'}).join('')+'</div>';
+    (function(rn){
+      door.addEventListener('click',function(){openCode(rn)});
+    })(num);
     bg.appendChild(door);
   } else {
-    // Room 3 — final challenge
-    const center = document.createElement('div');
-    center.className = 'room3-center';
-    const card = document.createElement('div');
-    card.className = 'room3-card';
-    card.innerHTML = `<div style="padding:4px;text-align:center">
-      <button class="btn-answer" style="margin:16px auto;padding:14px 32px;font-size:1rem;border-radius:10px"
-        onclick="openRoom3Modal()">🔐 Open Final Challenge</button>
-    </div>`;
-    center.appendChild(card);
+    // Room 3
+    var center=document.createElement('div');
+    center.className='r3-center';
+    center.innerHTML='<div class="r3-card"><h3>🔐 The Secret Room</h3><p>This is the final challenge! Complete sentences about the Johnson family using the verb <b>TO BE</b>.</p><button class="btn-final" id="btn-open-r3">Open Final Challenge</button></div>';
     bg.appendChild(center);
+    setTimeout(function(){
+      var b=$('btn-open-r3');
+      if(b)b.addEventListener('click',openR3);
+    },50);
   }
 
-  // Narration
-  setNarration(room.intro);
+  narrate(r.intro);
 }
 
-// ═══════════════════════════════════════
-//  TIMER
-// ═══════════════════════════════════════
-function startTimer() {
-  state.timerInterval = setInterval(() => {
-    state.timer--;
-    if (state.timer <= 0) {
-      clearInterval(state.timerInterval);
-      gameOver();
-      return;
-    }
-    const m = Math.floor(state.timer / 60);
-    const s = state.timer % 60;
-    const el = document.getElementById('timer');
-    el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    if (state.timer <= 120) el.classList.add('warning');
-    else el.classList.remove('warning');
-  }, 1000);
-}
+// ════════════════════════════════════
+// CLUE MODAL
+// ════════════════════════════════════
+function openClue(room,idx){
+  S.cur={room:room,idx:idx};
+  var obj=ROOMS[room].objects[idx];
 
-// ═══════════════════════════════════════
-//  NARRATION
-// ═══════════════════════════════════════
-function setNarration(html) {
-  const el = document.getElementById('narratorText');
-  el.innerHTML = html;
-}
+  var header=$('clue-header');
+  header.style.background=obj.headerColor;
+  var img=$('clue-img');
+  img.style.display='block';
+  img.src=obj.img;
+  img.onerror=function(){this.style.display='none'};
+  $('clue-emoji').textContent=obj.emoji;
 
-// ═══════════════════════════════════════
-//  CLUE MODAL (Rooms 1 & 2)
-// ═══════════════════════════════════════
-function openClueModal(room, objIdx) {
-  state.currentObj = { room, idx: objIdx };
-  const obj = ROOMS[room].objects[objIdx];
+  $('clue-title').textContent=obj.title;
+  $('clue-text').innerHTML=obj.text;
+  $('clue-qlabel').textContent='❓ '+obj.question;
 
-  document.getElementById('clueImg').src = obj.img;
-  document.getElementById('clueTitle').textContent = obj.title;
-  document.getElementById('clueText').innerHTML = obj.text;
-  document.getElementById('clueQLabel').textContent = '❓ ' + obj.question;
-  document.getElementById('clueQInput').value = '';
-  document.getElementById('clueQInput').className = '';
-  document.getElementById('clueQInput').disabled = false;
+  var inp=$('clue-input');
+  inp.value='';
+  inp.className='';
+  inp.disabled=false;
 
-  const fb = document.getElementById('clueFeedback');
-  fb.className = 'modal-feedback';
-  fb.textContent = '';
+  var fb=$('clue-fb');
+  fb.className='feedback';
+  fb.textContent='';
 
-  // If already answered, show completed state
-  if (state.answered[room][objIdx]) {
-    document.getElementById('clueQInput').value = obj.answer;
-    document.getElementById('clueQInput').classList.add('correct');
-    document.getElementById('clueQInput').disabled = true;
-    fb.className = 'modal-feedback show success';
-    fb.textContent = '✓ Correct! Clue card collected.';
+  if(S.done[room][idx]){
+    inp.value=obj.answer;
+    inp.classList.add('ok');
+    inp.disabled=true;
+    fb.className='feedback show yes';
+    fb.textContent='✓ Correct! Clue card collected.';
   }
 
-  document.getElementById('clueOverlay').classList.add('active');
-  if (!state.answered[room][objIdx]) {
-    setTimeout(() => document.getElementById('clueQInput').focus(), 300);
-  }
+  $('ov-clue').classList.add('show');
+  if(!S.done[room][idx])setTimeout(function(){inp.focus()},200);
 }
 
-function closeClueModal() {
-  document.getElementById('clueOverlay').classList.remove('active');
-  state.currentObj = null;
+function closeClue(){
+  $('ov-clue').classList.remove('show');
+  S.cur=null;
 }
 
-function submitClueAnswer() {
-  if (!state.currentObj) return;
-  const { room, idx } = state.currentObj;
-  if (state.answered[room][idx]) return;
+function submitClue(){
+  if(!S.cur)return;
+  var room=S.cur.room, idx=S.cur.idx;
+  if(S.done[room][idx])return;
+  var obj=ROOMS[room].objects[idx];
+  var inp=$('clue-input');
+  var val=inp.value.trim().toLowerCase();
+  var fb=$('clue-fb');
 
-  const obj = ROOMS[room].objects[idx];
-  const input = document.getElementById('clueQInput');
-  const val = input.value.trim().toLowerCase();
-  const fb = document.getElementById('clueFeedback');
+  if(val===obj.answer.toLowerCase()){
+    S.done[room][idx]=true;
+    inp.classList.add('ok');
+    inp.disabled=true;
+    fb.className='feedback show yes';
 
-  if (val === obj.answer.toLowerCase()) {
-    // Correct!
-    state.answered[room][idx] = true;
-    input.classList.add('correct');
-    input.disabled = true;
-    fb.className = 'modal-feedback show success';
-    fb.textContent = '✅ Correct! Clue card collected!';
+    // Show which digit was found
+    var digitVal=ROOMS[room].code[idx];
+    fb.textContent='✅ Correct! Code digit #'+(idx+1)+' is: '+digitVal;
 
-    // Add clue card
-    state.clues.push(obj.clue);
-    document.getElementById('clueCount').textContent = state.clues.length;
+    S.clues.push(obj.clue);
+    $('tb-clues').textContent=S.clues.length;
 
-    // Update room after a moment
-    setTimeout(() => {
-      closeClueModal();
-      enterRoom(room); // Re-render room
-      const done = state.answered[room].every(Boolean);
-      if (done) {
-        setNarration("All clues found! Click the <strong>door lock</strong> to enter the code and unlock the next room! 🔓");
+    setTimeout(function(){
+      closeClue();
+      enterRoom(room);
+      var left=S.done[room].filter(function(v){return !v}).length;
+      if(left===0){
+        narrate('All clues found! Click the <b>door lock</b> 🔒 to enter the code and unlock the next room!');
       } else {
-        const remaining = state.answered[room].filter(x => !x).length;
-        setNarration(`Great work! <strong>${remaining}</strong> more clue${remaining>1?'s':''} to find. Keep searching! 🔍`);
+        narrate('Great work! <b>'+left+'</b> more clue'+(left>1?'s':'')+' to find. Keep searching! 🔍');
       }
-    }, 1200);
+    },1400);
+  } else {
+    inp.classList.remove('no');
+    void inp.offsetWidth;
+    inp.classList.add('no');
+    fb.className='feedback show nope';
+    fb.textContent='❌ Not quite! '+obj.hint;
+    setTimeout(function(){inp.classList.remove('no')},500);
+  }
+}
+
+$('clue-close').addEventListener('click',closeClue);
+$('clue-submit').addEventListener('click',submitClue);
+$('clue-input').addEventListener('keydown',function(e){if(e.key==='Enter')submitClue()});
+
+// ════════════════════════════════════
+// CODE MODAL
+// ════════════════════════════════════
+function openCode(room){
+  var r=ROOMS[room];
+  var allDone=S.done[room].every(function(v){return v});
+  var found=S.done[room].filter(function(v){return v}).length;
+
+  $('code-status').textContent=allDone?'All digits found! Enter the code below.':'Digits found: '+found+'/'+r.code.length+'. Find more clues!';
+
+  // Revealed boxes
+  var revH='';
+  r.code.split('').forEach(function(d,i){
+    revH+='<div class="rev-box'+(S.done[room][i]?' found':'')+'">'+( S.done[room][i]?d:'?')+'</div>';
+  });
+  $('rev-boxes').innerHTML=revH;
+
+  // Input boxes
+  var inH='';
+  for(var i=0;i<r.code.length;i++){
+    inH+='<div class="in-box" id="ib-'+i+'"></div>';
+  }
+  $('in-boxes').innerHTML=inH;
+
+  // Keypad
+  var kpH='';
+  for(var n=1;n<=9;n++) kpH+='<button class="kp" data-k="'+n+'">'+n+'</button>';
+  kpH+='<button class="kp kp-del" data-k="del">⌫</button>';
+  kpH+='<button class="kp" data-k="0">0</button>';
+  kpH+='<button class="kp kp-go" data-k="go">✓</button>';
+  $('keypad').innerHTML=kpH;
+
+  // Attach keypad events
+  document.querySelectorAll('#keypad .kp').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var k=this.getAttribute('data-k');
+      if(k==='del') codeBack();
+      else if(k==='go') codeGo(room);
+      else codeType(k,room);
+    });
+  });
+
+  S.codeIn='';
+  $('code-fb').textContent='';
+  $('code-fb').style.color='';
+  $('ov-code').classList.add('show');
+}
+
+function closeCode(){$('ov-code').classList.remove('show')}
+
+function codeType(d,room){
+  var len=ROOMS[room].code.length;
+  if(S.codeIn.length>=len)return;
+  S.codeIn+=d;
+  refreshCodeBoxes(room);
+}
+
+function codeBack(){
+  S.codeIn=S.codeIn.slice(0,-1);
+  refreshCodeBoxes(S.room);
+}
+
+function refreshCodeBoxes(room){
+  var len=ROOMS[room].code.length;
+  for(var i=0;i<len;i++){
+    var box=$('ib-'+i);
+    if(!box)continue;
+    if(i<S.codeIn.length){
+      box.textContent=S.codeIn[i];
+      box.className='in-box filled';
+    } else {
+      box.textContent='';
+      box.className='in-box';
+    }
+  }
+}
+
+function codeGo(room){
+  var r=ROOMS[room];
+  var allDone=S.done[room].every(function(v){return v});
+  var fb=$('code-fb');
+
+  if(!allDone){
+    fb.textContent='⚠️ Find all clues first!';
+    fb.style.color='var(--red)';
+    return;
+  }
+
+  if(S.codeIn===r.code){
+    // Correct!
+    for(var i=0;i<r.code.length;i++){
+      var box=$('ib-'+i);
+      if(box)box.className='in-box right';
+    }
+    fb.textContent='🔓 Door unlocked!';
+    fb.style.color='var(--green)';
+
+    setTimeout(function(){
+      closeCode();
+      if(room+1<=3) enterRoom(room+1);
+    },1300);
   } else {
     // Wrong
-    input.classList.remove('wrong');
-    void input.offsetWidth;
-    input.classList.add('wrong');
-    fb.className = 'modal-feedback show error';
-    fb.textContent = '❌ Not quite! ' + obj.wrongHint;
-    setTimeout(() => input.classList.remove('wrong'), 500);
+    for(var i=0;i<r.code.length;i++){
+      var box=$('ib-'+i);
+      if(box){box.classList.remove('wrong');void box.offsetWidth;box.classList.add('wrong')}
+    }
+    fb.textContent='❌ Wrong code! Look at the revealed digits above.';
+    fb.style.color='var(--red)';
+    setTimeout(function(){
+      S.codeIn='';
+      refreshCodeBoxes(room);
+      for(var i=0;i<r.code.length;i++){var box=$('ib-'+i);if(box)box.classList.remove('wrong')}
+    },900);
   }
 }
 
-// Enter key support
-document.getElementById('clueQInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') submitClueAnswer();
+$('code-close').addEventListener('click',closeCode);
+
+// Keyboard for code
+document.addEventListener('keydown',function(e){
+  if(!$('ov-code').classList.contains('show'))return;
+  if(e.key>='0'&&e.key<='9') codeType(e.key,S.room);
+  else if(e.key==='Backspace') codeBack();
+  else if(e.key==='Enter') codeGo(S.room);
 });
 
-// ═══════════════════════════════════════
-//  CODE MODAL (Rooms 1 & 2)
-// ═══════════════════════════════════════
-function openCodeModal(room) {
-  const roomData = ROOMS[room];
-  const allDone = state.answered[room].every(Boolean);
-
-  // Build code boxes
-  const boxes = document.getElementById('codeBoxes');
-  boxes.innerHTML = '';
-  roomData.code.split('').forEach((digit, i) => {
-    const box = document.createElement('div');
-    box.className = 'code-box';
-    if (state.answered[room][i]) {
-      box.textContent = digit;
-      box.classList.add('filled');
-    } else {
-      box.textContent = '?';
-    }
-    boxes.appendChild(box);
+// ════════════════════════════════════
+// ROOM 3 — FILL IN BLANKS
+// ════════════════════════════════════
+function openR3(){
+  var sents=ROOMS[3].sentences;
+  var h='';
+  sents.forEach(function(s,i){
+    h+='<div class="sent" id="s-'+i+'"><span>'+s.before+' </span><input type="text" class="fill-in" id="fi-'+i+'" placeholder="___" autocomplete="off"><span> '+s.after+'</span></div>';
   });
-
-  const hintEl = document.getElementById('codeHintText');
-  if (allDone) {
-    hintEl.textContent = 'The code is revealed! Enter it below to unlock the door.';
-  } else {
-    const need = state.answered[room].filter(x => !x).length;
-    hintEl.textContent = `Answer ${need} more question${need>1?'s':''} to reveal the full code.`;
-  }
-
-  // Build keypad
-  const keypad = document.getElementById('keypad');
-  keypad.innerHTML = '';
-  for (let i = 1; i <= 9; i++) {
-    keypad.innerHTML += `<button class="key" onclick="codeKey('${i}')">${i}</button>`;
-  }
-  keypad.innerHTML += `<button class="key key-action key-clear" onclick="codeClear()">⌫</button>`;
-  keypad.innerHTML += `<button class="key" onclick="codeKey('0')">0</button>`;
-  keypad.innerHTML += `<button class="key key-action key-submit" onclick="codeSubmit()">✓</button>`;
-
-  state.codeInput = '';
-  document.getElementById('codeFeedback').textContent = '';
-  document.getElementById('codeOverlay').classList.add('active');
+  $('fill-sents').innerHTML=h;
+  var fb=$('fill-fb');
+  fb.className='feedback';fb.textContent='';
+  $('ov-r3').classList.add('show');
+  setTimeout(function(){var f=$('fi-0');if(f)f.focus()},200);
 }
 
-function closeCodeModal() {
-  document.getElementById('codeOverlay').classList.remove('active');
-}
+function closeR3(){$('ov-r3').classList.remove('show')}
 
-function codeKey(digit) {
-  const room = state.room;
-  const code = ROOMS[room].code;
-  if (state.codeInput.length >= code.length) return;
-  state.codeInput += digit;
-  updateCodeDisplay();
-}
-
-function codeClear() {
-  state.codeInput = state.codeInput.slice(0, -1);
-  updateCodeDisplay();
-}
-
-function updateCodeDisplay() {
-  const boxes = document.getElementById('codeBoxes').children;
-  const room = state.room;
-  const code = ROOMS[room].code;
-  for (let i = 0; i < code.length; i++) {
-    if (state.answered[room][i]) {
-      // Revealed digit
-      if (i < state.codeInput.length) {
-        boxes[i].textContent = state.codeInput[i];
-        boxes[i].className = 'code-box filled';
-      } else {
-        boxes[i].textContent = code[i];
-        boxes[i].className = 'code-box filled';
-      }
+function checkR3(){
+  var sents=ROOMS[3].sentences;
+  var allOk=true;
+  sents.forEach(function(s,i){
+    var inp=$('fi-'+i);
+    var row=$('s-'+i);
+    var val=inp.value.trim().toLowerCase();
+    inp.classList.remove('f-ok','f-no');
+    row.classList.remove('s-ok','s-no');
+    if(val===s.answer){
+      inp.classList.add('f-ok');
+      row.classList.add('s-ok');
     } else {
-      boxes[i].textContent = i < state.codeInput.length ? state.codeInput[i] : '?';
-      boxes[i].className = 'code-box' + (i < state.codeInput.length ? ' filled' : '');
-    }
-  }
-}
-
-function codeSubmit() {
-  const room = state.room;
-  const code = ROOMS[room].code;
-  const allDone = state.answered[room].every(Boolean);
-
-  if (!allDone) {
-    document.getElementById('codeFeedback').textContent = '⚠️ Find all clues first!';
-    document.getElementById('codeFeedback').style.color = 'var(--red)';
-    return;
-  }
-
-  if (state.codeInput === code) {
-    // Correct code!
-    const boxes = document.getElementById('codeBoxes').children;
-    for (let b of boxes) b.classList.add('correct-box');
-    document.getElementById('codeFeedback').textContent = '🔓 Door unlocked!';
-    document.getElementById('codeFeedback').style.color = 'var(--green)';
-
-    setTimeout(() => {
-      closeCodeModal();
-      const nextRoom = room + 1;
-      if (nextRoom <= 3) {
-        enterRoom(nextRoom);
-      }
-    }, 1500);
-  } else {
-    // Wrong code
-    const boxes = document.getElementById('codeBoxes').children;
-    for (let b of boxes) { b.classList.remove('wrong-box'); void b.offsetWidth; b.classList.add('wrong-box'); }
-    document.getElementById('codeFeedback').textContent = '❌ Wrong code! Try again.';
-    document.getElementById('codeFeedback').style.color = 'var(--red)';
-    setTimeout(() => {
-      state.codeInput = '';
-      updateCodeDisplay();
-      for (let b of boxes) b.classList.remove('wrong-box');
-    }, 800);
-  }
-}
-
-// ═══════════════════════════════════════
-//  ROOM 3 — FILL IN THE BLANKS
-// ═══════════════════════════════════════
-function openRoom3Modal() {
-  const sentences = ROOMS[3].sentences;
-  const container = document.getElementById('fillSentences');
-  container.innerHTML = '';
-
-  sentences.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'fill-sentence';
-    div.id = `fill-${i}`;
-    s.parts.forEach(part => {
-      if (part === '___') {
-        const inp = document.createElement('input');
-        inp.type = 'text';
-        inp.className = 'fill-input';
-        inp.id = `fill-input-${i}`;
-        inp.placeholder = '___';
-        inp.autocomplete = 'off';
-        div.appendChild(inp);
-      } else {
-        const span = document.createElement('span');
-        span.textContent = part + ' ';
-        div.appendChild(span);
-      }
-    });
-    container.appendChild(div);
-  });
-
-  document.getElementById('fillFeedback').className = 'modal-feedback';
-  document.getElementById('fillFeedback').textContent = '';
-  document.getElementById('room3Overlay').classList.add('active');
-  setTimeout(() => {
-    const first = document.getElementById('fill-input-0');
-    if (first) first.focus();
-  }, 300);
-}
-
-function closeRoom3Modal() {
-  document.getElementById('room3Overlay').classList.remove('active');
-}
-
-function checkFillBlanks() {
-  const sentences = ROOMS[3].sentences;
-  let allCorrect = true;
-  const fb = document.getElementById('fillFeedback');
-
-  sentences.forEach((s, i) => {
-    const inp = document.getElementById(`fill-input-${i}`);
-    const sent = document.getElementById(`fill-${i}`);
-    const val = inp.value.trim().toLowerCase();
-
-    inp.classList.remove('correct-in', 'wrong-in');
-    sent.classList.remove('correct-sent', 'wrong-sent');
-
-    if (val === s.answer) {
-      inp.classList.add('correct-in');
-      sent.classList.add('correct-sent');
-    } else {
-      inp.classList.add('wrong-in');
-      sent.classList.add('wrong-sent');
-      allCorrect = false;
+      inp.classList.add('f-no');
+      row.classList.add('s-no');
+      allOk=false;
     }
   });
-
-  if (allCorrect) {
-    fb.className = 'modal-feedback show success';
-    fb.innerHTML = '🎉 All correct! You solved the mystery!';
-    setTimeout(() => {
-      closeRoom3Modal();
-      victory();
-    }, 2000);
+  var fb=$('fill-fb');
+  if(allOk){
+    fb.className='feedback show yes';
+    fb.innerHTML='🎉 All correct! You solved the mystery!';
+    setTimeout(function(){closeR3();victory()},1800);
   } else {
-    fb.className = 'modal-feedback show error';
-    fb.innerHTML = '❌ Some answers are wrong. Remember: use <strong>IS</strong> for one, <strong>ARE</strong> for two or more!';
-    setTimeout(() => {
-      sentences.forEach((_, i) => {
-        const inp = document.getElementById(`fill-input-${i}`);
-        const sent = document.getElementById(`fill-${i}`);
-        if (inp.classList.contains('wrong-in')) {
-          inp.classList.remove('wrong-in');
-          sent.classList.remove('wrong-sent');
-        }
+    fb.className='feedback show nope';
+    fb.innerHTML='❌ Some answers are wrong. Remember: <b>IS</b> for one, <b>ARE</b> for two or more!';
+    setTimeout(function(){
+      sents.forEach(function(s,i){
+        var inp=$('fi-'+i);var row=$('s-'+i);
+        if(inp.classList.contains('f-no')){inp.classList.remove('f-no');row.classList.remove('s-no')}
       });
-    }, 1500);
+    },1200);
   }
 }
 
-// ═══════════════════════════════════════
-//  HINTS
-// ═══════════════════════════════════════
-function useHint() {
-  const room = state.room;
-  if (!state.hints[room] || state.hints[room] <= 0) {
-    setNarration("No more hints for this room! You can do it, Detective! 💪");
-    return;
-  }
-  const hintIdx = (ROOMS[room].hints.length) - state.hints[room];
-  state.hints[room]--;
-  document.getElementById('hintCount').textContent = state.hints[room];
-  setNarration(ROOMS[room].hints[hintIdx]);
-}
+$('r3-close').addEventListener('click',closeR3);
+$('btn-fill-check').addEventListener('click',checkR3);
+document.addEventListener('keydown',function(e){
+  if($('ov-r3').classList.contains('show')&&e.key==='Enter')checkR3();
+});
 
-// ═══════════════════════════════════════
-//  INVENTORY
-// ═══════════════════════════════════════
-function toggleInventory() {
-  const panel = document.getElementById('invPanel');
-  const overlay = document.getElementById('invOverlay');
-  const isOpen = panel.classList.contains('open');
+// ════════════════════════════════════
+// HINTS
+// ════════════════════════════════════
+$('btn-hint').addEventListener('click',function(){
+  var r=S.room;
+  if(!S.hints[r]||S.hints[r]<=0){narrate("No more hints for this room! You can do it! 💪");return}
+  var idx=ROOMS[r].hints.length-S.hints[r];
+  S.hints[r]--;
+  $('tb-hints').textContent=S.hints[r];
+  narrate(ROOMS[r].hints[idx]);
+});
 
-  if (isOpen) {
-    panel.classList.remove('open');
-    overlay.classList.remove('open');
+// ════════════════════════════════════
+// INVENTORY
+// ════════════════════════════════════
+function toggleInv(){
+  var open=$('inv-panel').classList.contains('show');
+  if(open){
+    $('inv-panel').classList.remove('show');
+    $('inv-bg').classList.remove('show');
   } else {
-    // Render cards
-    const container = document.getElementById('invCards');
-    if (state.clues.length === 0) {
-      container.innerHTML = '<div class="inv-empty">No clue cards yet.<br>Examine objects to collect clues!</div>';
+    var h='';
+    if(S.clues.length===0){
+      h='<div class="inv-empty">No clue cards yet.<br>Examine objects to collect clues!</div>';
     } else {
-      container.innerHTML = '';
-      state.clues.forEach((clue, i) => {
-        container.innerHTML += `<div class="inv-card"><strong>Clue #${i+1}:</strong> ${clue}</div>`;
+      S.clues.forEach(function(c,i){
+        h+='<div class="inv-card"><b>Clue #'+(i+1)+':</b> '+c+'</div>';
       });
     }
-    panel.classList.add('open');
-    overlay.classList.add('open');
+    $('inv-cards').innerHTML=h;
+    $('inv-panel').classList.add('show');
+    $('inv-bg').classList.add('show');
   }
 }
+$('btn-inv').addEventListener('click',toggleInv);
+$('inv-close').addEventListener('click',toggleInv);
+$('inv-bg').addEventListener('click',toggleInv);
 
-// ═══════════════════════════════════════
-//  VICTORY & GAME OVER
-// ═══════════════════════════════════════
-function victory() {
-  clearInterval(state.timerInterval);
-  showScreen('victory');
+// ════════════════════════════════════
+// VICTORY
+// ════════════════════════════════════
+function victory(){
+  clearInterval(S.tick);
+  show('victory');
+  var elapsed=Math.floor((Date.now()-S.t0)/1000);
+  var m=Math.floor(elapsed/60),s=elapsed%60;
+  $('v-time').textContent='⏱️ Time: '+(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
 
-  // Time
-  const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
-  const m = Math.floor(elapsed / 60);
-  const s = elapsed % 60;
-  document.getElementById('victoryTime').textContent =
-    `⏱️ Time: ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-
-  // Family
-  const fam = document.getElementById('victoryFamily');
-  fam.innerHTML = '';
-  CHARACTERS.forEach(c => {
-    fam.innerHTML += `<div class="victory-member">
-      <img src="${c.img}" alt="${c.name}" onerror="this.style.background='var(--card2)'">
-      <div class="vm-name">${c.name}</div>
-    </div>`;
+  var h='';
+  CHARS.forEach(function(c){
+    h+='<div class="v-member"><div class="vm-av" style="background:'+c.color+'22;border-color:'+c.color+'">'+c.emoji+'</div><div class="vm-n">'+c.name+'</div></div>';
   });
+  $('v-family').innerHTML=h;
 
   // Sparkles
-  createSparkles();
-}
-
-function gameOver() {
-  clearInterval(state.timerInterval);
-  showScreen('gameover');
-}
-
-function createSparkles() {
-  const container = document.getElementById('sparkles');
-  container.innerHTML = '';
-  const colors = ['#f5c518','#3fb950','#58a6ff','#e94560','#fff'];
-  for (let i = 0; i < 60; i++) {
-    const s = document.createElement('div');
-    s.className = 'sparkle';
-    s.style.left = Math.random() * 100 + '%';
-    s.style.top = '-10px';
-    s.style.width = (3 + Math.random() * 5) + 'px';
-    s.style.height = s.style.width;
-    s.style.background = colors[Math.floor(Math.random() * colors.length)];
-    s.style.animationDuration = (2 + Math.random() * 4) + 's';
-    s.style.animationDelay = Math.random() * 3 + 's';
-    container.appendChild(s);
+  var sp=$('sparkles');sp.innerHTML='';
+  var colors=['#f5c518','#3fb950','#58a6ff','#e94560','#fff','#a855f7'];
+  for(var i=0;i<50;i++){
+    var d=document.createElement('div');
+    d.className='sp';
+    d.style.left=Math.random()*100+'%';
+    d.style.width=d.style.height=(3+Math.random()*5)+'px';
+    d.style.background=colors[Math.floor(Math.random()*colors.length)];
+    d.style.animationDuration=(2+Math.random()*4)+'s';
+    d.style.animationDelay=Math.random()*3+'s';
+    sp.appendChild(d);
   }
 }
-
-// ═══════════════════════════════════════
-//  KEYBOARD SHORTCUTS
-// ═══════════════════════════════════════
-document.addEventListener('keydown', e => {
-  if (document.getElementById('codeOverlay').classList.contains('active')) {
-    if (e.key >= '0' && e.key <= '9') codeKey(e.key);
-    else if (e.key === 'Backspace') codeClear();
-    else if (e.key === 'Enter') codeSubmit();
-  }
-  if (document.getElementById('room3Overlay').classList.contains('active')) {
-    if (e.key === 'Enter') checkFillBlanks();
-  }
-});
 </script>
 </body>
 </html>
